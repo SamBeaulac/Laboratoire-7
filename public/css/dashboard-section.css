@@ -1,0 +1,39 @@
+.dashboard__section {
+}
+
+.dashboard__container {
+  max-width: 48rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dashboard__header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.dashboard__content {
+}
+
+.dashboard__form {
+  padding: 2rem;
+}
+
+.dashboard__table {
+}
+
+.dashboard__table-td {
+  width: auto;
+  padding: 0;
+}
+
+.dashboard-table__form-input,
+.dashboard-table__form-input--textarea {
+  border: none;
+}
+
+.dashboard__confirmation-wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}

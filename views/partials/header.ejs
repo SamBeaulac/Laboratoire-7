@@ -1,0 +1,55 @@
+<header class="header">
+  <div class="header__section">
+    <div class="section color-scheme-1" id="header">
+      <div class="header__template-areas">
+        <div class="header__template-area--bot-left">
+          <div class="header__item header__logo">Logo</div>
+        </div>
+
+        <div class="header__template-area--bot-center">
+          <nav class="header__item header__menu">
+            <ul class="header__menu-list list-unstyled">
+              <li class="header__menu-item">
+                <a class="header__menu-link" href="/">Home</a>
+              </li>
+              <li class="header__menu-item">
+                <a class="header__menu-link" href="/contact">Contact</a>
+              </li>
+              <li class="header__menu-item">
+                <a class="header__menu-link" href="/about">About</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="header__template-area--bot-right">
+          <div class="header__item header__menu">
+            <ul class="header__menu-list list-unstyled">
+              <li class="header__menu-item">
+                <% if(currentUser && currentUser.id) { %>
+                <form
+                  class="header__logout-form"
+                  method="POST"
+                  action="/dashboard/<%= currentUser.username %>"
+                >
+                  <button
+                    type="submit"
+                    id="dbLogOutSubmit"
+                    name="dbLogOutSubmit"
+                    value="1"
+                    class="header__logout-button"
+                  >
+                    Log Out
+                  </button>
+                </form>
+                <% } else { %>
+                <a class="header__menu-link" href="/#login">Log In</a>
+                <% } %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

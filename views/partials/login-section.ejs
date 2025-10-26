@@ -1,0 +1,23 @@
+<section class="login__section" id="login">
+  <div class="section color-scheme-1">
+    <div class="login_container">
+      <div class="login__header">
+        <h2 class="h2">Log In</h2>
+      </div>
+      <div class="login__content">
+        <% if(currentUser) { %>
+        <h2><%= currentUser.welcomeText %></h2>
+        <% } %> <% if(error == 1) { %>
+        <small class="font-invalid"
+          >Nom d'utilisateur ou mot de passe incorrect</small
+        >
+        <% } else if(error == 2) { %>
+        <small class="font-invalid"
+          >Cet utilisateur est déjà connecté ailleurs</small
+        >
+        <% } %>
+      </div>
+      <%- include('../partials/login-form') %>
+    </div>
+  </div>
+</section>

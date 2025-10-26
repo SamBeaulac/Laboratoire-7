@@ -1,0 +1,309 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  width: 100%;
+}
+
+.content-for-layout {
+  flex: 1 0 auto;
+}
+
+.page-width {
+  --page-content-max-width: 1440px;
+  --page-margin-width: 16px;
+}
+
+@media screen and (width >= 750px) {
+  .page-width {
+    --page-margin-width: 40px;
+  }
+}
+
+.section {
+  --page-grid-content-column: min(
+    var(--page-content-max-width),
+    100% - (var(--page-margin-width) * 2)
+  );
+
+  --page-grid-margin-column: minmax(var(--page-margin-width), 1fr);
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns:
+    var(--page-grid-margin-column)
+    var(--page-grid-content-column)
+    var(--page-grid-margin-column);
+}
+
+.section > * {
+  grid-column: 2;
+}
+
+.section:not(#header):not(#footer) {
+  padding: 100px 0;
+}
+
+.color-scheme-1 {
+  color: rgba(0, 0, 0, 0.8);
+  --background-color: #ffffff;
+  background-color: var(--background-color);
+  border-color: black;
+  /* --- Buttons --- */
+  /* primary */
+  --button-primary-text-color: #ffffff;
+  --button-primary-background-color: black;
+  --button-primary-border-width: 1px;
+  --button-primary-border-style: solid;
+  --button-primary-border-color: black;
+  --button-primary-border-radius: 2px;
+  /* secondary */
+  --button-secondary-text-color: black;
+  --button-secondary-background-color: #ffffff;
+  --button-secondary-border-width: 1px;
+  --button-secondary-border-style: solid;
+  --button-secondary-border-color: black;
+  --button-secondary-border-radius: 2px;
+
+  /* --- Forms --- */
+  --form-input-text-color: black;
+  --form-input-background-color: #f1f1f1;
+  --form-input-border-width: 1px;
+  --form-input-border-style: solid;
+  --form-input-border-color: black;
+  --form-input-border-radius: 2px;
+
+  /* --- Table --- */
+  --table-thead-text-color: black;
+  --table-thead-background-color: #f1f1f1;
+  --table-tbody-text-color: black;
+  --table-tbody-background-color: #ffffff;
+  --table-border-width: 1px;
+  --table-border-style: solid;
+  --table-border-color: black;
+  --table-border-radius: 0;
+}
+
+.color-scheme-1 .btn-primary {
+  color: var(--button-primary-text-color);
+  background-color: var(--button-primary-background-color);
+  border: var(--button-primary-border-color) var(--button-primary-border-width)
+    var(--button-secondary-border-style);
+  border-radius: var(--button-primary-border-radius);
+}
+
+.color-scheme-1 .btn-secondary {
+  color: var(--button-secondary-text-color);
+  background-color: var(--button-secondary-background-color);
+  border: var(--button-secondary-border-width)
+    var(--button-secondary-border-style) var(--button-secondary-border-color);
+  border-radius: var(--button-secondary-border-radius);
+}
+
+.color-scheme-2 {
+  color: rgba(0, 0, 0, 0.8);
+  --background-color: #f1f1f1;
+  background-color: var(--background-color);
+  border-color: black;
+  /* --- Buttons --- */
+  /* primary */
+  --button-primary-text-color: #ffffff;
+  --button-primary-background-color: black;
+  --button-primary-border-width: 2px;
+  --button-primary-border-style: solid;
+  --button-primary-border-color: black;
+  --button-primary-border-radius: 2px;
+  /* secondary */
+  --button-secondary-text-color: black;
+  --button-secondary-background-color: #ffffff;
+  --button-secondary-border-width: 2px;
+  --button-secondary-border-style: solid;
+  --button-secondary-border-color: black;
+  --button-secondary-border-radius: 2px;
+
+  /* --- Form --- */
+  --form-input-text-color: black;
+  --form-input-background-color: #f1f1f1;
+  --form-input-border-width: 1px;
+  --form-input-border-style: solid;
+  --form-input-border-color: black;
+  --form-input-border-radius: 2px;
+
+  /* --- Table --- */
+  --table-thead-text-color: black;
+  --table-thead-background-color: #ffffff;
+  --table-tbody-text-color: black;
+  --table-tbody-background-color: #f1f1f1;
+  --table-border-width: 1px;
+  --table-border-style: solid;
+  --table-border-color: black;
+  --table-border-radius: 0;
+}
+
+/* --- FORM --- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media screen and (min-width: 750px) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.form-input,
+.form-input--textarea {
+  width: 100%;
+  padding: 0.8rem;
+  overflow: hidden;
+  color: var(--form-input-text-color);
+  background-color: var(--form-input-background-color);
+  border: var(--form-input-border-width) var(--form-input-border-style)
+    var(--form-input-border-color);
+  border-radius: var(--form-input-border-radius);
+}
+
+.form-input--textarea {
+  resize: vertical;
+}
+
+/* --- TABLE --- */
+.table {
+  width: 100%;
+  text-align: left;
+  table-layout: auto;
+  border-collapse: collapse;
+  border-radius: var(--table-border-radius);
+}
+
+.table .form-input {
+  background-color: var(--table-tbody-background-color);
+}
+
+.table-head {
+  color: var(--table-thead-text-color);
+  background-color: var(--table-thead-background-color);
+}
+.table-body {
+  color: var(--table-tbody-text-color);
+  background-color: var(--table-tbody-background-color);
+}
+
+.table-tr {
+}
+
+.table-th,
+.table-td {
+  text-wrap: wrap;
+  padding: 0.5rem 1rem;
+  border: var(--table-border-width) var(--table-border-style)
+    var(--table-border-color);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.btn,
+.btn--small,
+.btn--full-width {
+  display: block;
+  width: fit-content;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.btn--small {
+  padding: 0.5rem 1rem;
+}
+
+.btn--full-width {
+  width: 100%;
+}
+
+a:hover .btn:hover,
+.btn--small:hover,
+.btn--full-width:hover {
+  border-color: var(--background-color);
+  text-decoration: none;
+}
+
+.list-unstyled {
+  list-style: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+.h1 {
+  font-size: 2.5rem;
+}
+
+.h2 {
+  font-size: 2rem;
+}
+
+.h3 {
+  font-size: 1.5rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.font-invalid {
+  color: red;
+}
+
+.font-valid {
+  color: green;
+}
+
+.nf__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.about__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}

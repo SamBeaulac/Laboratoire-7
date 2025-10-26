@@ -1,0 +1,57 @@
+<form class="contact__form form" method="POST" action="/contact">
+  <!-- Name -->
+  <div class="contact__form-row form-row">
+    <input
+      type="text"
+      id="fname"
+      name="fname"
+      autocomplete="fname"
+      placeholder="First name"
+      class="contact__form-input form-input"
+    />
+    <input
+      type="text"
+      id="lname"
+      name="lname"
+      autocomplete="lname"
+      placeholder="Last name"
+      class="contact__form-input form-input"
+    />
+  </div>
+  <!-- Contact info -->
+  <div class="contact__form-row form-row">
+    <input
+      type="email"
+      id="email"
+      name="email"
+      autocomplete="email"
+      placeholder="Email adress"
+      class="contact__form-input form-input"
+    />
+    <input
+      type="tel"
+      id="tel"
+      name="tel"
+      autocomplete="email"
+      placeholder="Phone number"
+      pattern="[0-9\-]*"
+      class="contact__form-input form-input"
+    />
+  </div>
+  <!-- Message -->
+  <textarea
+    id="message"
+    name="message"
+    class="contact__form-input--textarea form-input--textarea"
+    placeholder="Message"
+    rows="8"
+  ></textarea>
+  <!-- Submit -->
+  <input
+    class="btn btn-primary"
+    type="submit"
+    id="contactSubmit"
+    name="contactSubmit"
+    value="Envoyer"
+  />
+</form>

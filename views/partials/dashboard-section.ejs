@@ -1,0 +1,100 @@
+<section class="dashboard__section">
+  <div class="section color-scheme-1">
+    <div class="dashboard__container">
+      <div class="dashboard__header">
+        <% if(currentUser) { %>
+        <h1 class="h1 dashboard__title"><%= currentUser.welcomeText %></h1>
+        <% } %>
+      </div>
+      <div class="dashboard__content"></div>
+      <% if(currentUser.role > 0) { %>
+      <form
+        class="dashboard__form form color-scheme-2"
+        method="POST"
+        action="/dashboard/<%= currentUser.username %>"
+      >
+        <label for="password">Message d'accueil</label>
+        <textarea
+          id="welcomeText"
+          name="welcomeText"
+          class="dashboard__form-input--textarea form-input--textarea"
+          placeholder="<%= currentUser.welcomeText %>"
+          rows="3"
+          required
+        >
+<%= currentUser.welcomeText %></textarea
+        >
+
+        <% if(currentUser.role > 1 ) { %>
+        <label for="password">Password</label>
+        <input
+          class="form-input"
+          id="password"
+          name="password"
+          value="<%= currentUser.password %>"
+        />
+        <% } %> <% if(currentUser.role > 2) { %>
+        <label>Tout les comptes</label>
+        <table class="dashboard__table table">
+          <thead class="dashboard__table-head table-head">
+            <tr class="table-tr">
+              <th class="table-th">#</th>
+              <th class="table-th">Password</th>
+              <th class="table-th">Message d'accueil</th>
+            </tr>
+          </thead>
+          <tbody class="dashboard__table-body table-body">
+            <% users.forEach(function(otherUser){ %> <% if(otherUser.id !==
+            currentUser.id) { %>
+            <tr class="table-tr">
+              <td class="dashboard__table-td table-td">
+                <div class="dashboard-table__form-input form-input">
+                  <%= otherUser.id %>
+                </div>
+              </td>
+              <td class="dashboard__table-td table-td">
+                <input
+                  class="dashboard-table__form-input form-input"
+                  name="password_<%= otherUser.id %>"
+                  value="<%= otherUser.password %>"
+                />
+              </td>
+              <td class="dashboard__table-td table-td">
+                <textarea
+                  class="dashboard-table__form-input--textarea form-input--textarea"
+                  name="welcomeText_<%= otherUser.id %>"
+                  rows="1"
+                >
+<%= otherUser.welcomeText %></textarea
+                >
+              </td>
+            </tr>
+            <% } %> <% }); %>
+          </tbody>
+        </table>
+        <% } %>
+        <div class="dashboard__confirmation-wrapper">
+          <input
+            type="submit"
+            id="dbModifySubmit"
+            name="dbModifySubmit"
+            value="Confirmer"
+            class="dashboard__button btn--small btn-primary"
+          />
+          <div class="dashboard__flash-message">
+            <% if(flashMessage == 1) { %>
+            <small class="font-valid"
+              >Modifications enregistrées avec succès !</small
+            >
+            <% } else if(flashMessage == 0) { %>
+            <small class="font-invalid"
+              >Aucune modification n’a été appliquée.</small
+            >
+            <% } %>
+          </div>
+        </div>
+      </form>
+      <% } %>
+    </div>
+  </div>
+</section>
