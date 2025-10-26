@@ -1,8 +1,8 @@
 /**
- * @file PaysG20.js
+ * @file LoginDB.js
  * @author Samuel Beaulac
- * @date 19/10/2025
- * @brief Modèle de gestion de la base de données PaysG20
+ * @date 26/10/2025
+ * @brief Modèle de gestion de la base de données Login
  */
 
 // Initialise la connection 
@@ -71,7 +71,7 @@ class LoginDB {
 
     static async getUsersInformation() {
         const [rows] = await pool.query(
-            `SELECT id, password, welcomeText
+            `SELECT id, username, password, welcomeText
             FROM Users`,
         );
 
@@ -85,7 +85,7 @@ class LoginDB {
 
     static async changeUserInformation(id, updates) {
         const [rows] = await pool.query(
-            `SELECT id, username, role, welcomeText
+            `SELECT id, username, password, role, welcomeText
             FROM Users 
             WHERE id = ?`,
             [id]
@@ -103,11 +103,21 @@ class LoginDB {
 
         if(updates.username && updates.username !== current.username)
         {
+            const [existing] = await pool.query(
+                `SELECT id FROM Users WHERE username = ?`,
+                [updates.username]
+            );
+            
+            if(existing.length > 0) 
+            {
+                return { updated: false, currentUser: current, error: 'username_exists' };
+            }
+            
             champs.push('username = ?');
             valeurs.push(updates.username);
         }
 
-        if(updates.password)
+        if(updates.password && updates.password !== current.password)
         {
             champs.push('password = ?');
             valeurs.push(updates.password);
@@ -121,7 +131,7 @@ class LoginDB {
 
         if(champs.length === 0) 
         {
-            return { updated: false, user: current };
+            return { updated: false, currentUser: current };
         }
 
         valeurs.push(id);
@@ -141,11 +151,11 @@ class LoginDB {
                 WHERE id = ?`,
                 [id]
             );
-            return { updated: true, user: updatedRows[0] };
+            return { updated: true, currentUser: updatedRows[0] };
         } 
         else 
         {
-            return { updated: false, user: current };
+            return { updated: false, currentUser: current };
         }
     }
 

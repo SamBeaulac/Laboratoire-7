@@ -1,3 +1,10 @@
+/**
+ * @file header.css
+ * @author Samuel Beaulac
+ * @date 26/10/2025
+ * @brief Styles pour l'en-tête
+ */
+
 .header__section {
   position: relative;
   z-index: 10;

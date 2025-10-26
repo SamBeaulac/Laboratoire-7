@@ -1,3 +1,10 @@
+/**
+ * @file about.js
+ * @author Samuel Beaulac
+ * @date 26/10/2025
+ * @brief Route pour la page à propos
+ */
+
 const express = require('express');
 const router = express.Router();
 

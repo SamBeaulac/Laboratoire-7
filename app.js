@@ -1,3 +1,10 @@
+/**
+ * @file app.js
+ * @author Samuel Beaulac
+ * @date 26/10/2025
+ * @brief Configuration principale du serveur Express
+ */
+
 const express = require('express');
 const cookieSession = require('cookie-session');
 const path = require('path');
@@ -39,7 +46,7 @@ app.use(express.json())
 app.use(cookieSession({
     name: 'session',
     keys: ['todotopsecret'],
-    maxAge: 24 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000 
 }));
 
 const activeSessions = new Map();

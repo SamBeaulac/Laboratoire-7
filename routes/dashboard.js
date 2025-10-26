@@ -1,3 +1,10 @@
+/**
+ * @file dashboard.js
+ * @author Samuel Beaulac
+ * @date 26/10/2025
+ * @brief Route pour le tableau de bord utilisateur
+ */
+
 const express = require('express');
 const LoginDB = require('../models/LoginDB');
 
@@ -54,32 +61,44 @@ router.post('/:username', async function(req, res) {
 
    if(req.body.dbModifySubmit) 
    {
-      const updates = {};
-      let anyUpdate = false;
-
-      if(req.body.username)
-      {
-         updates.username = req.body.username;
-      }
-
-      if(req.body.password)
-      {
-         updates.password = req.body.password;
-      }
-      
-      if(currentUser.role > 0 && req.body.welcomeText !== undefined) 
-      {
-         updates.welcomeText = req.body.welcomeText;
-      }
-
-      const result = await LoginDB.changeUserInformation(currentUser.id, updates);
-      
-      if(!result) 
+      if(currentUser.role === 0) 
       {
          return res.redirect(`/dashboard/${currentUser.username}?updated=0`);
       }
 
-      const { updated, currentUser: updatedUser } = result;
+      try {
+         const updates = {};
+         let anyUpdate = false;
+
+         if(req.body.username && req.body.username.trim())
+         {
+            updates.username = req.body.username.trim();
+         }
+
+         if(req.body.password && req.body.password.trim() && currentUser.role > 1)
+         {
+            updates.password = req.body.password.trim();
+         }
+         
+         if(currentUser.role > 0 && req.body.welcomeText !== undefined) 
+         {
+            updates.welcomeText = req.body.welcomeText;
+         }
+
+            const result = await LoginDB.changeUserInformation(currentUser.id, updates);
+         
+         if(!result) 
+         {
+            return res.redirect(`/dashboard/${currentUser.username}?updated=0`);
+         }
+
+         if(result.error === 'username_exists') 
+         {
+            return res.redirect(`/dashboard/${currentUser.username}?updated=0`);
+         }
+
+         const { updated, currentUser: updatedUser } = result;
+      
       anyUpdate = updated;
 
       if(currentUser.role > 2) 
@@ -146,16 +165,20 @@ router.post('/:username', async function(req, res) {
          role: updatedUser.role
       };
 
-      if(anyUpdate)
-      {
-         res.redirect(`/dashboard/${updatedUser.username}?updated=1`);
-      } 
-      else 
-      {
-         res.redirect(`/dashboard/${updatedUser.username}?updated=0`);
-      }
+         if(anyUpdate)
+         {
+            res.redirect(`/dashboard/${updatedUser.username}?updated=1`);
+         } 
+         else 
+         {
+            res.redirect(`/dashboard/${updatedUser.username}?updated=0`);
+         }
 
-      return;
+         return;
+      } catch(error) {
+         console.error('Erreur lors de la modification:', error);
+         return res.redirect(`/dashboard/${currentUser.username}?updated=0`);
+      }
    }
 
    // Log Out
@@ -170,6 +193,8 @@ router.post('/:username', async function(req, res) {
       req.session = null;
       return res.redirect('/');
    }
+
+   return res.redirect(`/dashboard/${currentUser.username}`);
 });
 
 module.exports = router;

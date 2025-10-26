@@ -1,20 +1,37 @@
-const IDLE_MS = 1 * 60 * 1000;
+/**
+ * @file expiration.js
+ * @author Samuel Beaulac
+ * @date 26/10/2025
+ * @brief Gestion du timeout de session par inactivité
+ */
 
-$(document).ready(function () {
+const IDLE_MS = 2 * 60 * 1000;
+
+$(document).ready(function () 
+{
+  if(!document.querySelector('.header__logout-button')) 
+  {
+    return;
+  }
+  
   let idleTimer;
 
-  function onIdle() {
+  function onIdle() 
+  {
     alert('Inactivité détectée.');
     $.post('/logout')
-      .always(function () {
+      .always(function() 
+      {
         window.location.href = '/';
       })
-      .fail(function (err) {
+      .fail(function(err) 
+      {
         console.error('Logout failed', err);
       });
   }
 
-  function resetIdleTimer() {
+  function resetIdleTimer() 
+  {
     clearTimeout(idleTimer);
     idleTimer = setTimeout(onIdle, IDLE_MS);
   }

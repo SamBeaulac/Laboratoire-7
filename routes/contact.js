@@ -1,3 +1,10 @@
+/**
+ * @file contact.js
+ * @author Samuel Beaulac
+ * @date 26/10/2025
+ * @brief Route pour la page de contact
+ */
+
 const express = require('express');
 const fs = require('fs');
 const path = require('path');

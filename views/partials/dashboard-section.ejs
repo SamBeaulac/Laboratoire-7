@@ -1,3 +1,9 @@
+<!--
+  @file dashboard-section.ejs
+  @author Samuel Beaulac
+  @date 26/10/2025
+  @brief Section du tableau de bord
+-->
 <section class="dashboard__section">
   <div class="section color-scheme-1">
     <div class="dashboard__container">
@@ -32,6 +38,7 @@
           id="password"
           name="password"
           value="<%= currentUser.password %>"
+          required
         />
         <% } %> <% if(currentUser.role > 2) { %>
         <label>Tout les comptes</label>
@@ -57,6 +64,7 @@
                   class="dashboard-table__form-input form-input"
                   name="password_<%= otherUser.id %>"
                   value="<%= otherUser.password %>"
+                  required
                 />
               </td>
               <td class="dashboard__table-td table-td">
@@ -64,6 +72,7 @@
                   class="dashboard-table__form-input--textarea form-input--textarea"
                   name="welcomeText_<%= otherUser.id %>"
                   rows="1"
+                  required
                 >
 <%= otherUser.welcomeText %></textarea
                 >
